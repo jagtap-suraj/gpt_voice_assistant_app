@@ -48,18 +48,10 @@ Finally run the following commands to run your app:
 
 ## Screenshots
 
-<<<<<<< HEAD
-<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/9e8f68e7-8dce-486e-806f-79e83976d40e" width="222">
-<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/3dc68ad2-1768-4226-bcf6-0aad4fb70644" width="222">
-<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/3e3772f0-f21b-4dc2-a81b-b96c398fcce8" width="222">
-<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/3d9ed0cf-99a7-4652-8aa1-26dea9220b1c" width="222">
-=======
-<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/3dc68ad2-1768-4226-bcf6-0aad4fb70644" width="222">
-<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/3d9ed0cf-99a7-4652-8aa1-26dea9220b1c" width="222">
-<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/9e8f68e7-8dce-486e-806f-79e83976d40e" width="222">
-<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/3e3772f0-f21b-4dc2-a81b-b96c398fcce8" width="222">
-
-> > > > > > > 8093dfc (Update README.md)
+<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/3dc68ad2-1768-4226-bcf6-0aad4fb70644" width="200">
+<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/3d9ed0cf-99a7-4652-8aa1-26dea9220b1c" width="200">
+<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/9e8f68e7-8dce-486e-806f-79e83976d40e" width="200">
+<img src="https://github.com/jagtap-suraj/gpt_voice_assistant_app/assets/89206671/3e3772f0-f21b-4dc2-a81b-b96c398fcce8" width="200">
 
 special thanks to [Rivaan Ranawat](https://www.youtube.com/@RivaanRanawat)
 Reference tutorial [link](https://youtu.be/Q_pz4xFow3Q?si)
