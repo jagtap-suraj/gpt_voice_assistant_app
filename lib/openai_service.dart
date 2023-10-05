@@ -21,12 +21,11 @@ class OpenAIService {
             "messages": [
               {
                 'role': 'user',
-                'content': 'Does this message want to generate an AI picture, image, art, drawing, painting, sketch, illustration, graphics, photo or anything similar? $prompt. Simply answer with a yes or no.',
+                'content': 'Does this message want to generate an image, picture, art, drawing, painting, sketch, illustration, graphics, photo or anything similar? $prompt. Simply answer with a yes or no.',
               }
             ]
           }));
-      print('response body: ${response.body}');
-      print('response status code: ${response.statusCode}');
+
       if (response.statusCode == 200) {
         String content = jsonDecode(response.body)['choices'][0]['message']['content'];
         content = content.trim();
@@ -36,13 +35,15 @@ class OpenAIService {
           case 'Yes.':
           case 'yes.':
             final response = await dallEAPI(prompt);
+
             return response;
           default:
             final response = await chatGPTAPI(prompt);
+
             return response;
         }
       }
-      return 'AI';
+      return 'An internal error occurred.';
     } catch (e) {
       return e.toString();
     }
@@ -75,6 +76,7 @@ class OpenAIService {
           'role': 'assistant',
           'content': content,
         });
+
         return content;
       }
       return 'An internal error occurred.';
@@ -99,6 +101,7 @@ class OpenAIService {
           body: jsonEncode({
             'prompt': prompt,
             'n': 1,
+            'size': '256x256'
           }));
 
       if (response.statusCode == 200) {
@@ -109,6 +112,7 @@ class OpenAIService {
           'role': 'assistant',
           'content': imageUrl,
         });
+
         return imageUrl;
       }
       return 'An internal error occurred.';

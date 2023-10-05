@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:gpt_voice_assistant_app/feature_box.dart';
 import 'package:gpt_voice_assistant_app/menu_drawer.dart';
@@ -62,12 +63,20 @@ class _HomePageState extends State<HomePage> {
   void onSpeechResult(SpeechRecognitionResult result) {
     setState(() {
       lastWords = result.recognizedWords;
-
-      print("Recognized Speech: $lastWords");
-
-      // if (result.finalResult) {
-      //   openAIService.isArtPromptAPI(lastWords);
-      // }
+      if (result.finalResult) {
+        // Move the async operation outside of setState
+        openAIService.isArtPromptAPI(lastWords).then((speech) {
+          if (speech.contains('https')) {
+            generatedImageUrl = speech;
+            generatedContent = null;
+          } else {
+            generatedImageUrl = null;
+            generatedContent = speech;
+            systemSpeak(speech);
+          }
+          setState(() {}); // Update the state after the async operation is complete.
+        });
+      }
     });
   }
 
@@ -105,6 +114,38 @@ class _HomePageState extends State<HomePage> {
               color: Pallete.menuColor,
             ),
           ),
+          actions: [
+            Visibility(
+              visible: generatedContent != null,
+              child: IconButton(
+                onPressed: () async {
+                  Clipboard.setData(ClipboardData(text: generatedContent!)).then((value) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Copied to Clipboard'),
+                      ),
+                    );
+                  });
+                },
+                icon: const Icon(
+                  Icons.copy,
+                  color: Pallete.menuColor,
+                ),
+              ),
+            ),
+            Visibility(
+              visible: generatedContent != null,
+              child: IconButton(
+                onPressed: () async {
+                  await flutterTts.stop();
+                },
+                icon: const Icon(
+                  Icons.stop,
+                  color: Pallete.menuColor,
+                ),
+              ),
+            ),
+          ],
         ),
         drawer: const SafeArea(child: MenuDrawer()),
         body: SingleChildScrollView(
@@ -132,7 +173,7 @@ class _HomePageState extends State<HomePage> {
               ),
               // Chat Cloud Bubble
               FadeInLeft(
-                delay: Duration(milliseconds: start + delay * 2),
+                //delay: Duration(milliseconds: start + delay * 2),
                 child: Visibility(
                   visible: generatedImageUrl == null,
                   child: Container(
@@ -171,7 +212,7 @@ class _HomePageState extends State<HomePage> {
 
               if (generatedImageUrl != null)
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0).copyWith(top: 50),
                   child: ClipRRect(borderRadius: BorderRadius.circular(20), child: Image.network(generatedImageUrl!)),
                 ),
 
@@ -236,21 +277,7 @@ class _HomePageState extends State<HomePage> {
               if (await speechToText.hasPermission && speechToText.isNotListening) {
                 await startListening();
               } else if (speechToText.isListening) {
-                final speech = await openAIService.isArtPromptAPI(lastWords);
-                //print("Speech: $speech");
-                //await systemSpeak(speech);
-                //await openAIService.isArtPromptAPI(lastWords);
-                //String response = await openAIService.isArtPromptAPI(lastWords);
-                //print("Response from isArtPromptAPI: $response");
-                if (speech.contains('https')) {
-                  generatedImageUrl = speech;
-                  generatedContent = lastWords;
-                } else {
-                  generatedImageUrl = null;
-                  generatedContent = speech;
-                  setState(() {});
-                  await systemSpeak(speech);
-                }
+                await startListening();
                 await stopListening();
               } else {
                 initSpeechToText();

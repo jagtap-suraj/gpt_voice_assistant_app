@@ -9,8 +9,15 @@ class CustomDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Pallete.greyColor,
-      content: Text(message),
+      backgroundColor: Pallete.backgroundColor.withOpacity(0.9),
+      content: Text(
+        message,
+        style: const TextStyle(
+          color: Pallete.mainFontColor,
+          fontFamily: 'Cera Pro',
+          fontSize: 16,
+        ),
+      ),
       actions: [
         TextButton(
           onPressed: () {

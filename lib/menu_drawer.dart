@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gpt_voice_assistant_app/custom_dialog.dart';
+import 'package:gpt_voice_assistant_app/home_page.dart';
 import 'package:gpt_voice_assistant_app/pallete.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 class MenuDrawer extends StatefulWidget {
   const MenuDrawer({super.key});
@@ -66,7 +66,11 @@ class _MenuDrawerState extends State<MenuDrawer> {
               style: TextStyle(color: Pallete.mainFontColor, fontFamily: 'Cera Pro'),
             ),
             onTap: () {
-              setState(() {});
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const HomePage(),
+                ),
+              );
             },
           ),
           ListTile(
